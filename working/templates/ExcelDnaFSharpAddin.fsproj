@@ -38,7 +38,7 @@
     <None Include="scripts\GenerateLaunchSettings.fsx" />
     <None Include="DebugSettings.fsx" />
     <None Include="ExcelDnaFSharpAddin.dna" />
-    <Compile Include="Library1.fs" />
+    <Compile Include="TestFunction.fs" />
   </ItemGroup>
 
   <ItemGroup>

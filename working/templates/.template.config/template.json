@@ -12,7 +12,6 @@
     "type": "project"
   },
   "sourceName": "ExcelDnaFSharpAddin",
-  "preferNameDirectory": true,
   "symbols": {
     "Framework": {
       "type": "parameter",
