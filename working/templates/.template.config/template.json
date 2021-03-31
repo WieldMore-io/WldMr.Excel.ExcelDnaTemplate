@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "PY Rivaille",
+  "classifications": [ "ExcelDNA", "F#" ],
+  "identity": "WldMr.ExcelDnaFSharp.Template",
+  "description": "An ExcelDNA F# addin SDK project",
+  "defaultName": "ExcelDnaFSharpAddin",
+  "name": "ExcelDNA F# addin project",
+  "shortName": "exceldnatemplate",
+  "tags": {
+    "language": "F#",
+    "type": "project"
+  },
+  "sourceName": "ExcelDnaFSharpAddin",
+  "preferNameDirectory": true,
+  "symbols": {
+    "Framework": {
+      "type": "parameter",
+      "description": "The target framework for the project.",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "net461",
+          "description": "Target net461"
+        },
+        {
+          "choice": "net472",
+          "description": "Target net472"
+        }
+      ],
+      "replaces": "net461",
+      "defaultValue": "net461"
+    },
+    "AuthorName": {
+      "type": "parameter",
+      "defaultValue": "(insert author name)",
+      "replaces": "AuthorName",
+      "datatype": "text",
+      "description": "Author name"
+    },
+    "Description": {
+      "type": "parameter",
+      "description": "Description text that will be shown for this nuget package on nuget.org",
+      "defaultValue": "(insert description)",
+      "replaces": "DescriptionContent"
+    }
+  }
+}
