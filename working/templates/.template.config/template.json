@@ -2,11 +2,11 @@
   "$schema": "http://json.schemastore.org/template",
   "author": "PY Rivaille",
   "classifications": [ "ExcelDNA", "F#" ],
-  "identity": "WldMr.ExcelDnaFSharp.Template",
+  "identity": "WldMr.Excel.ExcelDnaTemplate",
   "description": "An ExcelDNA F# addin SDK project",
   "defaultName": "ExcelDnaFSharpAddin",
   "name": "ExcelDNA F# addin project",
-  "shortName": "exceldnatemplate",
+  "shortName": "exceldna-addin",
   "tags": {
     "language": "F#",
     "type": "project"
