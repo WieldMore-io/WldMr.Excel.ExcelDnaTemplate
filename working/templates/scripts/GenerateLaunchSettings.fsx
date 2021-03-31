@@ -57,10 +57,10 @@ let outputPath = """\Properties\launchSettings.json"""
 
 let writeLaunchSettings () =
   let paths = getPaths ()
+  paths.ProjectPath + "\\Properties" |> System.IO.Directory.CreateDirectory |> ignore
   let templateFullPath = paths.ProjectPath + outputPath
   printfn "Writing to %s" templateFullPath
   File.WriteAllText(templateFullPath, fileContent())
   "It seems the script terminated without error!" + "\n" +
     "The file should have been created at:" + "\n" +
     $"{templateFullPath}" |> printfn "%s"
-  
