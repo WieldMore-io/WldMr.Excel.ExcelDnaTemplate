@@ -5,21 +5,40 @@
 open System.IO
 open FSharpPlus
 open System.Text.Json
+open Microsoft.Win32
+open System.Runtime.InteropServices
 
+type SCS =  
+ | SCS_NONE = -1
+ | SCS_32BIT_BINARY = 0
+ | SCS_64BIT_BINARY = 6
+ | SCS_DOS_BINARY = 1
+ | SCS_OS216_BINARY = 5
+ | SCS_PIF_BINARY = 3
+ | SCS_POSIX_BINARY = 4
+ | SCS_WOW_BINARY = 2
+
+[<DllImport(@"kernel32.dll", CallingConvention = CallingConvention.Winapi)>]
+extern bool GetBinaryType(string applicationName, SCS& binaryType)
 
 type Arch = X64 | X86
 module Arch =
   let toSuffix = function X64 -> "64" | _ -> ""
 
 // TODO: FIX me
-let findExcel () =
-  if File.Exists "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE" then
-    "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE" |> Some
-  else
-    None
+// DONE: You're fixed
+let excelKey = "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\excel.exe"
+let excelPath = Registry.LocalMachine.OpenSubKey(excelKey).GetValue("").ToString()
 
 // TODO: improve me
-let findArch path = if path |> String.startsWith "C:\\Program Files" then X64 else X86
+// DONE: You're improved
+let findArch = 
+  let mutable scs : SCS = SCS.SCS_NONE
+  GetBinaryType(foo, &scs) |> ignore
+  match scs with
+    | SCS.SCS_64BIT_BINARY -> Some(Arch.X64)
+    | SCS.SCS_32BIT_BINARY -> Some(Arch.X86)
+    | _ -> None
 
 let launchSettingsContent excelPath projectName args =
   sprintf """{
