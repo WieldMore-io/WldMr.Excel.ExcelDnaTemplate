@@ -44,7 +44,7 @@ steps:
   condition: and(succeeded(), eq(variables.pushToGitHubReleases, true))
   inputs:
     gitHubConnection: github.com_PierreYvesR
-    repositoryName: WieldMore-io/WldMr.Excel.ExcenDnaTemplate
+    repositoryName: WieldMore-io/WldMr.Excel.ExcelDnaTemplate
     tagSource: manual
     addChangeLog: false
     isPreRelease: true
