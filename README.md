@@ -35,7 +35,7 @@ check it is installed
 `dotnet new list -lang 'F#'`
 use it 
 `dotnet new exceldna-addin -A py -D "a test" -F net472`
-or use Visual Studio "New project"
+or use Visual Studio "New project" and search for "F#" & "Library"
 uninstall it 
 `dotnet new -u WldMr.Excel.ExcelDnaTemplate`
 
