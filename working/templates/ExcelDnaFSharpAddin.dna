@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DnaLibrary Name="ExcelDnaFSharpAddin" RuntimeVersion="v4.0" xmlns="http://schemas.excel-dna.net/addin/2018/05/dnalibrary">
   <ExternalLibrary Path="ExcelDnaFSharpAddin.dll" ExplicitExports="false" LoadFromBytes="true" Pack="true" IncludePdb="false" />
+  <Reference Path="FSharp.Core.dll" Pack="true" />
 </DnaLibrary>
