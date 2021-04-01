@@ -5,8 +5,9 @@
 
     <PackageVersion>0.0.1</PackageVersion>
     <PackageId>WldMr.Excel.ExcelDnaTemplate</PackageId>
-    <Title>AdatumCorporation Templates</Title>
+    <Title>ExcelDna template for F# SDK-project</Title>
     <Authors>PY Rivaille</Authors>
+    <Company>WieldMore IM Limited</Company>
     <Description>Template to create an ExcelDNA F# addin SDK project</Description>
     <PackageTags>dotnet-new;templates</PackageTags>
 
