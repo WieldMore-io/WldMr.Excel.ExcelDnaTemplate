@@ -1,3 +1,7 @@
+### Build status
+
+[![Build Status](https://dev.azure.com/WldMr/WieldMore.io/_apis/build/status/WieldMore-io.WldMr.Excel.ExcelDnaTemplate?branchName=master)](https://dev.azure.com/WldMr/WieldMore.io/_build/latest?definitionId=16&branchName=master)
+
 # ExclDNA F# 'dotnet new' template
 
 
