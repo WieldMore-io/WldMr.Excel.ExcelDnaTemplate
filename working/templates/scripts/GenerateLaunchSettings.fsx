@@ -1,44 +1,28 @@
-
 #r "nuget: FSharpPlus"
-#r "nuget: System.Text.Json"  // can nuget be avoided without adding the reference to the project?
+#r "nuget: System.Text.Json"
 
 open System.IO
 open FSharpPlus
 open System.Text.Json
-open Microsoft.Win32
-open System.Runtime.InteropServices
 
-type SCS =  
- | SCS_NONE = -1
- | SCS_32BIT_BINARY = 0
- | SCS_64BIT_BINARY = 6
- | SCS_DOS_BINARY = 1
- | SCS_OS216_BINARY = 5
- | SCS_PIF_BINARY = 3
- | SCS_POSIX_BINARY = 4
- | SCS_WOW_BINARY = 2
 
-[<DllImport(@"kernel32.dll", CallingConvention = CallingConvention.Winapi)>]
-extern bool GetBinaryType(string applicationName, SCS& binaryType)
+let excelKey = "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\excel.exe"
+let excelPath = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(excelKey).GetValue("").ToString()
+
 
 type Arch = X64 | X86
+
 module Arch =
-  let toSuffix = function X64 -> "64" | _ -> ""
+  let toSuffix = function X64 -> "64" | X86 -> ""
 
-// TODO: FIX me
-// DONE: You're fixed
-let excelKey = "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\excel.exe"
-let excelPath = Registry.LocalMachine.OpenSubKey(excelKey).GetValue("").ToString()
+  let GetBinaryType (path:string) =
+    let at pos (reader:BinaryReader) = 
+      reader.BaseStream.Seek(pos, SeekOrigin.Begin) |> ignore |> reader.ReadInt32
+    use reader = new BinaryReader(File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+    let peOffset = reader |> at 60L
+    let optHeaderMagic = reader |> at (int64 (peOffset + 24)) |> int16
+    match optHeaderMagic with | 0x20Bs -> X64 | 0x10Bs -> X86 | _ -> failwith "Unknown arch"
 
-// TODO: improve me
-// DONE: You're improved
-let findArch = 
-  let mutable scs : SCS = SCS.SCS_NONE
-  GetBinaryType(foo, &scs) |> ignore
-  match scs with
-    | SCS.SCS_64BIT_BINARY -> Some(Arch.X64)
-    | SCS.SCS_32BIT_BINARY -> Some(Arch.X86)
-    | _ -> None
 
 let launchSettingsContent excelPath projectName args =
   sprintf """{
@@ -55,9 +39,8 @@ let launchSettingsContent excelPath projectName args =
 let getPaths () =
   let projectPath = __SOURCE_DIRECTORY__ |> Path.GetDirectoryName
   let projectName = projectPath |> Path.GetFileName
-  let excelPath = findExcel () |> Option.defaultValue "UNKNOWN_PATH_TO_EXCEL"
   let relativeXllPath = "\\bin\\Debug\\net461"
-  let xllName = projectName + (excelPath |> findArch  |> Arch.toSuffix) + ".xll"
+  let xllName = projectName + (excelPath |> Arch.GetBinaryType |> Arch.toSuffix) + ".xll"
   {|
     ProjectPath = projectPath
     ProjectName = projectName
